@@ -28,7 +28,7 @@ export default Graves;
 const Grave = ({ position, rotation }) => {
   return (
     <mesh position={position} rotation={rotation}>
-      <boxGeometry args={[0.6, 0.8, 0.2]} />
+      <boxGeometry castShadow args={[0.6, 0.8, 0.2]} />
       <meshStandardMaterial color="#b2b6b1" />
     </mesh>
   );

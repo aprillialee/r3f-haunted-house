@@ -13,6 +13,7 @@ import { TextureLoader } from "three/src/loaders/TextureLoader";
 //Components
 import House from "./House/House";
 import Graves from "./Graves/Graves";
+import Ghosts from "./Ghosts/Ghosts";
 
 const Scene = () => {
   return (
@@ -26,15 +27,17 @@ const Scene = () => {
         aspect: window.innerWidth / window.innerHeight,
         position: [4, 2, 5],
       }}
+      shadowMap
     >
       <OrbitControls />
       <Suspense fallback={null}>
         <House />
         <Graves />
+        <Ghosts />
         <Floor />
-        {/* <fog attach="fog" color="#262837" near={1} far={15} /> */}
+        <fog attach="fog" color="#262837" near={1} far={15} />
         <ambientLight color="#b9d5ff" intensity={0.5} />
-        <directionalLight color="#b9d5ff" intensity={0.12} />
+        <directionalLight castShadow color="#b9d5ff" intensity={0.12} />
       </Suspense>
     </Canvas>
   );
@@ -64,7 +67,7 @@ const Floor = () => {
 
   return (
     <mesh rotation={[-Math.PI * 0.5, 0, 0]}>
-      <planeGeometry args={[20, 20]} />
+      <planeGeometry receiveShadow args={[20, 20]} />
       <meshStandardMaterial
         attach="material"
         map={colorMap}
