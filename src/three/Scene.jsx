@@ -6,6 +6,10 @@ import { Suspense } from "react";
 import { Canvas, useLoader } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 
+//THREE
+import * as THREE from "three";
+import { TextureLoader } from "three/src/loaders/TextureLoader";
+
 //Components
 import House from "./House/House";
 import Graves from "./Graves/Graves";
@@ -28,8 +32,8 @@ const Scene = () => {
         <House />
         <Graves />
         <Floor />
-        <fog attach="fog" color="#262837" near={1} far={15} />
-        <ambientLight color="#b9d5ff" intensity={0.1} />
+        {/* <fog attach="fog" color="#262837" near={1} far={15} /> */}
+        <ambientLight color="#b9d5ff" intensity={0.5} />
         <directionalLight color="#b9d5ff" intensity={0.12} />
       </Suspense>
     </Canvas>
@@ -39,10 +43,35 @@ const Scene = () => {
 export default Scene;
 
 const Floor = () => {
+  const repeatX = 8;
+  const repeatY = 8;
+
+  const colorMap = useLoader(TextureLoader, "/assets/grass/color.jpg");
+  colorMap.wrapS = colorMap.wrapT = THREE.RepeatWrapping;
+  colorMap.repeat.set(repeatX, repeatY);
+
+  const normalMap = useLoader(TextureLoader, "/assets/grass/normal.jpg");
+  normalMap.wrapS = normalMap.wrapT = THREE.RepeatWrapping;
+  normalMap.repeat.set(repeatX, repeatY);
+
+  const roughnessMap = useLoader(TextureLoader, "/assets/grass/roughness.jpg");
+  roughnessMap.wrapS = roughnessMap.wrapT = THREE.RepeatWrapping;
+  roughnessMap.repeat.set(repeatX, repeatY);
+
+  const aoMap = useLoader(TextureLoader, "/assets/grass/ambientOcclusion.jpg");
+  aoMap.wrapS = aoMap.wrapT = THREE.RepeatWrapping;
+  aoMap.repeat.set(repeatX, repeatY);
+
   return (
     <mesh rotation={[-Math.PI * 0.5, 0, 0]}>
       <planeGeometry args={[20, 20]} />
-      <meshStandardMaterial color="#a9c388" />
+      <meshStandardMaterial
+        attach="material"
+        map={colorMap}
+        normalMap={normalMap}
+        roughnessMap={roughnessMap}
+        aoMap={aoMap}
+      />
     </mesh>
   );
 };

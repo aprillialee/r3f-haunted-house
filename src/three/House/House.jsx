@@ -4,7 +4,7 @@ import React from "react";
 // R3F
 import { useLoader } from "@react-three/fiber";
 
-//drei
+//THREE
 import { TextureLoader } from "three/src/loaders/TextureLoader";
 
 const House = () => {
@@ -49,7 +49,7 @@ const Walls = () => {
     <mesh position={[0, 3 * 0.5, 0]}>
       <boxGeometry args={[4, 3, 4]} />
       <meshStandardMaterial
-        colorMap={colorMap}
+        map={colorMap}
         normalMap={normalMap}
         roughnessMap={roughnessMap}
         aoMap={aoMap}
