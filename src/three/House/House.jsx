@@ -33,6 +33,7 @@ const Roof = () => {
   return (
     <mesh
       castShadow
+      receiveShadow
       position={[0, 3 + 0.5, 0]}
       rotation={[0, Math.PI * 0.25, 0]}
     >
@@ -50,7 +51,7 @@ const Walls = () => {
     "/assets/walls/ambientOcclusion.jpg",
   ]);
   return (
-    <mesh castShadow position={[0, 3 * 0.5, 0]}>
+    <mesh castShadow receiveShadow position={[0, 3 * 0.5, 0]}>
       <boxGeometry args={[4, 3, 4]} />
       <meshStandardMaterial
         map={colorMap}
@@ -101,7 +102,7 @@ const Door = () => {
 
 const Bush = ({ position, scale }) => {
   return (
-    <mesh castShadow position={position} scale={scale}>
+    <mesh castShadow receiveShadow position={position} scale={scale}>
       <sphereGeometry args={[1, 16, 16]} />
       <meshStandardMaterial color="#89c854" />
     </mesh>
